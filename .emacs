@@ -169,3 +169,8 @@ There are two things you can do about this warning:
 
 ;; winner mode
 (winner-mode 1)
+
+;; persistent frame locations/sizes
+;;(desktop-save-mode 1)
+
+(setq visible-bell 1)
