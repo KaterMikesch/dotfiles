@@ -18,23 +18,26 @@ There are two things you can do about this warning:
    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 (custom-set-variables
-;; custom-set-variables was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
-'(custom-enabled-themes (quote (tango-dark)))
-'(global-display-line-numbers-mode t)
-'(package-selected-packages
-  (quote
-   (cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
-'(show-paren-mode t)
-'(tool-bar-mode nil))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(global-display-line-numbers-mode t)
+ '(package-selected-packages
+   (quote
+    (markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
-;; custom-set-faces was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
-)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(unless (package-installed-p 'use-package)
+ (package-install 'use-package))
 
 ;; Clojure dev
 (unless (package-installed-p 'cider)
@@ -174,3 +177,13 @@ There are two things you can do about this warning:
 ;;(desktop-save-mode 1)
 
 (setq visible-bell 1)
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+(setq markdown-command "/usr/local/bin/pandoc")
