@@ -24,6 +24,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
  '(global-display-line-numbers-mode t)
+ '(display-line-numbers-width 3)
  '(package-selected-packages
    (quote
     (markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
@@ -40,38 +41,23 @@ There are two things you can do about this warning:
  (package-install 'use-package))
 
 ;; Clojure dev
-(unless (package-installed-p 'cider)
- (package-install 'cider))
-
-(unless (package-installed-p 'company)
- (package-install 'company))
-
-(unless (package-installed-p 'rainbow-delimiters)
- (package-install 'rainbow-delimiters))
-
-(unless (package-installed-p 'clj-refactor)
- (package-install 'clj-refactor))
-
-(unless (package-installed-p 'paredit)
- (package-install 'paredit))
-
-(unless (package-installed-p 'aggressive-indent)
- (package-install 'aggressive-indent))
-
-(unless (package-installed-p 'clojure-mode)
- (package-install 'clojure-mode))
+(use-package cider)
+(use-package company)
+(use-package rainbow-delimiters)
+(use-package clj-refactor)
+(use-package paredit)
+(use-package aggressive-indent)
+(use-package clojure-mode)
+(use-package cljr-helm)
+(use-package clojure-mode-extra-font-locking)
 
 (unless (package-installed-p 'projectile)
  (package-install 'projectile))
 
-(unless (package-installed-p 'cljr-helm)
- (package-install 'cljr-helm))
-
 (unless (package-installed-p 'helm-projectile)
  (package-install 'helm-projectile))
 
-(unless (package-installed-p 'clojure-mode-extra-font-locking)
- (package-install 'clojure-mode-extra-font-locking))
+(use-package old-fashioned-undo)
 
 (setq projectile-project-search-path '("~/Projects/"))
 (projectile-mode +1)
@@ -184,6 +170,4 @@ There are two things you can do about this warning:
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
-
-(setq markdown-command "/usr/local/bin/pandoc")
+  :init (setq markdown-command "/usr/local/bin/pandoc"))
