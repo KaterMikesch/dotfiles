@@ -57,8 +57,6 @@ There are two things you can do about this warning:
 (unless (package-installed-p 'helm-projectile)
  (package-install 'helm-projectile))
 
-(use-package old-fashioned-undo)
-
 (setq projectile-project-search-path '("~/Projects/"))
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
