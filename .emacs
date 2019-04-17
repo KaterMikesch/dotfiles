@@ -187,3 +187,5 @@ There are two things you can do about this warning:
   :init (setq markdown-command "multimarkdown"))
 
 (setq markdown-command "/usr/local/bin/pandoc")
+
+(xterm-mouse-mode 1)
