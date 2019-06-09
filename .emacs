@@ -171,3 +171,23 @@ There are two things you can do about this warning:
   :init (setq markdown-command "/usr/local/bin/pandoc"))
 
 (xterm-mouse-mode 1)
+
+(defun my-add-pretty-lambda ()
+  "make some word or string show as pretty Unicode symbols"
+  (setq prettify-symbols-alist
+        '(
+          ("fn" . 955) ; λ
+          ("->" . 10230)    ; ⟶
+          (">=" . 10878)    ; ⩾
+          ("<=" . 10877)    ; ⩽
+          ("not=" . 8800)    ; ≠
+	  )))
+
+(add-hook 'clojure-mode-hook 'my-add-pretty-lambda)
+(add-hook 'haskell-mode-hook 'my-add-pretty-lambda)
+(add-hook 'shen-mode-hook 'my-add-pretty-lambda)
+(add-hook 'tex-mode-hook 'my-add-pretty-lambda)
+
+(global-prettify-symbols-mode 1)
+
+(set-face-attribute 'default nil :height 140)
