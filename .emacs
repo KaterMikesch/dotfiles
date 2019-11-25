@@ -23,11 +23,11 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
- '(global-display-line-numbers-mode t)
- '(display-line-numbers-width 3)
+ ;;'(display-line-numbers-width 3)
+ ;;'(global-display-line-numbers-mode t)
  '(package-selected-packages
    (quote
-    (markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
+    (neotree haskell-mode ergoemacs-mode json-mode markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -50,6 +50,7 @@ There are two things you can do about this warning:
 (use-package clojure-mode)
 (use-package cljr-helm)
 (use-package clojure-mode-extra-font-locking)
+(use-package haskell-mode)
 
 (unless (package-installed-p 'projectile)
  (package-install 'projectile))
@@ -191,3 +192,19 @@ There are two things you can do about this warning:
 (global-prettify-symbols-mode 1)
 
 (set-face-attribute 'default nil :height 140)
+
+;; neotree
+ (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root."))))
+
+ (global-set-key [f8] 'neotree-project-dir)
