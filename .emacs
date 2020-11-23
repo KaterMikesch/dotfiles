@@ -23,11 +23,9 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
- ;;'(display-line-numbers-width 3)
- ;;'(global-display-line-numbers-mode t)
  '(package-selected-packages
    (quote
-    (neotree haskell-mode ergoemacs-mode json-mode markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent rainbow-delimiters helm clojure-mode-extra-font-locking clj-refactor cider)))
+    (rainbow-delimiters toml-mode adoc-mode dylan-mode neotree haskell-mode ergoemacs-mode json-mode markdown-mode use-package cljr-helm company magit kibit-helper helm-projectile projectile helm-clojuredocs helm-cider-history aggressive-indent helm clojure-mode-extra-font-locking clj-refactor cider)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -50,7 +48,6 @@ There are two things you can do about this warning:
 (use-package clojure-mode)
 (use-package cljr-helm)
 (use-package clojure-mode-extra-font-locking)
-(use-package haskell-mode)
 
 (unless (package-installed-p 'projectile)
  (package-install 'projectile))
@@ -61,7 +58,7 @@ There are two things you can do about this warning:
 (setq projectile-project-search-path '("~/Projects/"))
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-;; (setq helm-projectile-fuzzy-match nil)
+(setq helm-projectile-fuzzy-match nil)
 (require 'helm-projectile)
 (helm-projectile-on)
 
@@ -85,10 +82,12 @@ There are two things you can do about this warning:
 (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
 (add-hook 'cider-mode-hook #'eldoc-mode)
 
+
+(add-hook 'cider-repl-mode-hook #'company-mode)
 (add-hook 'cider-mode-hook #'company-mode)
 (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
 
-(add-hook 'cider-repl-mode-hook #'company-mode)
+
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
 
@@ -208,3 +207,7 @@ There are two things you can do about this warning:
         (message "Could not find git project root."))))
 
  (global-set-key [f8] 'neotree-project-dir)
+
+;; adoc mode
+(add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
+(add-hook 'adoc-mode-hook (lambda() (buffer-face-mode t)))
